@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/gird.css">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/responsive.css">
+    <link rel="icon" href="https://i.imgur.com/H0GcZTx.png" type="image/x-icon" sizes="192x192">
+    <title>Trần Đình Tú</title>
+<style>
+@-webkit-keyframes
+  snowflakes-fall{0%{top:-10%}100%{top:100%}}@-webkit-keyframes
+  snowflakes-shake{0%{-webkit-transform:translateX(0px);transform:translateX(0px)}50%{-webkit-transform:translateX(80px);transform:translateX(80px)}100%{-webkit-transform:translateX(0px);transform:translateX(0px)}}@keyframes
+  snowflakes-fall{0%{top:-10%}100%{top:100%}}@keyframes
+  snowflakes-shake{0%{transform:translateX(0px)}50%{transform:translateX(80px)}100%{transform:translateX(0px)}}.snowflake{color:#fff;position:fixed;top:-10%;z-index:9999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default;-webkit-animation-name:snowflakes-fall,snowflakes-shake;-webkit-animation-duration:10s,3s;-webkit-animation-timing-function:linear,ease-in-out;-webkit-animation-iteration-count:infinite,infinite;-webkit-animation-play-state:running,running;animation-name:snowflakes-fall,snowflakes-shake;animation-duration:10s,3s;animation-timing-function:linear,ease-in-out;animation-iteration-count:infinite,infinite;animation-play-state:running,running}.snowflake:nth-of-type(0){left:1%;-webkit-animation-delay:0s,0s;animation-delay:0s,0s}.snowflake:nth-of-type(1){left:10%;-webkit-animation-delay:1s,1s;animation-delay:1s,1s}.snowflake:nth-of-type(2){left:20%;-webkit-animation-delay:6s,.5s;animation-delay:6s,.5s}.snowflake:nth-of-type(3){left:30%;-webkit-animation-delay:4s,2s;animation-delay:4s,2s}.snowflake:nth-of-type(4){left:40%;-webkit-animation-delay:2s,2s;animation-delay:2s,2s}.snowflake:nth-of-type(5){left:50%;-webkit-animation-delay:8s,3s;animation-delay:8s,3s}.snowflake:nth-of-type(6){left:60%;-webkit-animation-delay:6s,2s;animation-delay:6s,2s}.snowflake:nth-of-type(7){left:70%;-webkit-animation-delay:2.5s,1s;animation-delay:2.5s,1s}.snowflake:nth-of-type(8){left:80%;-webkit-animation-delay:1s,0s;animation-delay:1s,0s}.snowflake:nth-of-type(9){left:90%;-webkit-animation-delay:3s,1.5s;animation-delay:3s,1.5s} </style>
+<div class="snowflakes" aria-hidden="true">
+<div class="snowflake" style="font-size: 40px;">❅</div>
+<div class="snowflake" style="font-size: 40px;">❆ </div>
+<div class="snowflake" style="font-size: 40px;">❆</div>
+<div class="snowflake" style="font-size: 40px;">❅</div>
+<div class="snowflake" style="font-size: 50px;">❆</div>
+<div class="snowflake" style="font-size: 40px;">❅</div>
+<div class="snowflake" style="font-size: 70px;">❆</div>
+<div class="snowflake" style="font-size: 40px;">❆</div>
+</div>
+  
+<script type='text/javascript'>
+    //<![CDATA[
+    var pictureSrc = "https://1.bp.blogspot.com/-CXx9jt2JMRk/Vq-Lh5fm88I/AAAAAAAASwo/XivooDn_oSY/s1600/hoamai.png"; //Link ảnh hoa muốn hiển thị trên web
+    var pictureWidth = 20; //Chiều rộng của hoa mai or đào
+    var pictureHeight = 20; //Chiều cao của hoa mai or đào
+    var numFlakes = 20; //Số bông hoa xuất hiện cùng một lúc trên trang web
+    var downSpeed = 0.01; //Tốc độ rơi của hoa
+    var lrFlakes = 15; //Tốc độ các bông hoa giao động từ bên trai sang bên phải và ngược lại
+
+
+    if (typeof(numFlakes) != 'number' || Math.round(numFlakes) != numFlakes || numFlakes < 1) {
+        numFlakes = 10;
+    }
+
+    //draw the snowflakes
+    for (var x = 0; x < numFlakes; x++) {
+        if (document.layers) { //releave NS4 bug
+            document.write('<layer id="snFlkDiv' + x + '"><imgsrc="' + pictureSrc + '" height="' + pictureHeight + '"width="' + pictureWidth + '" alt="*" border="0"></layer>');
+        } else {
+            document.write('<div style="position:absolute; z-index:9999;"id="snFlkDiv' + x + '"><img src="' + pictureSrc + '"height="' + pictureHeight + '" width="' + pictureWidth + '" alt="*"border="0"></div>');
+        }
+    }
+
+    //calculate initial positions (in portions of browser window size)
+    var xcoords = new Array(),
+        ycoords = new Array(),
+        snFlkTemp;
+    for (var x = 0; x < numFlakes; x++) {
+        xcoords[x] = (x + 1) / (numFlakes + 1);
+        do {
+            snFlkTemp = Math.round((numFlakes - 1) * Math.random());
+        } while (typeof(ycoords[snFlkTemp]) == 'number');
+        ycoords[snFlkTemp] = x / numFlakes;
+    }
+
+    //now animate
+    function flakeFall() {
+        if (!getRefToDivNest('snFlkDiv0')) {
+            return;
+        }
+        var scrWidth = 0,
+            scrHeight = 0,
+            scrollHeight = 0,
+            scrollWidth = 0;
+        //find screen settings for all variations. doing this every time allows for resizing and scrolling
+        if (typeof(window.innerWidth) == 'number') {
+            scrWidth = window.innerWidth;
+            scrHeight = window.innerHeight;
+        } else {
+            if (document.documentElement && (document.documentElement.clientWidth || document.documentElement.clientHeight)) {
+                scrWidth = document.documentElement.clientWidth;
+                scrHeight = document.documentElement.clientHeight;
+            } else {
+                if (document.body && (document.body.clientWidth || document.body.clientHeight)) {
+                    scrWidth = document.body.clientWidth;
+                    scrHeight = document.body.clientHeight;
+                }
+            }
+        }
+        if (typeof(window.pageYOffset) == 'number') {
+            scrollHeight = pageYOffset;
+            scrollWidth = pageXOffset;
+        } else {
+            if (document.body && (document.body.scrollLeft || document.body.scrollTop)) {
+                scrollHeight = document.body.scrollTop;
+                scrollWidth = document.body.scrollLeft;
+            } else {
+                if (document.documentElement && (document.documentElement.scrollLeft || document.documentElement.scrollTop)) {
+                    scrollHeight = document.documentElement.scrollTop;
+                    scrollWidth = document.documentElement.scrollLeft;
+                }
+            }
+        }
+        //move the snowflakes to their new position
+        for (var x = 0; x < numFlakes; x++) {
+            if (ycoords[x] * scrHeight > scrHeight - pictureHeight) {
+                ycoords[x] = 0;
+            }
+            var divRef = getRefToDivNest('snFlkDiv' + x);
+            if (!divRef) {
+                return;
+            }
+            if (divRef.style) {
+                divRef = divRef.style;
+            }
+            var oPix = document.childNodes ? 'px' : 0;
+            divRef.top = (Math.round(ycoords[x] * scrHeight) + scrollHeight) + oPix;
+            divRef.left = (Math.round(((xcoords[x] * scrWidth) - (pictureWidth / 2)) + ((scrWidth / ((numFlakes + 1) * 4)) * (Math.sin(lrFlakes * ycoords[x]) - Math.sin(3 * lrFlakes * ycoords[x])))) + scrollWidth) + oPix;
+            ycoords[x] += downSpeed;
+        }
+    }
+
+    //DHTML handlers
+    function getRefToDivNest(divName) {
+        if (document.layers) {
+            return document.layers[divName];
+        } //NS4
+        if (document[divName]) {
+            return document[divName];
+        } //NS4 also
+        if (document.getElementById) {
+            return document.getElementById(divName);
+        } //DOM (IE5+, NS6+, Mozilla0.9+, Opera)
+        if (document.all) {
+            return document.all[divName];
+        } //Proprietary DOM - IE4
+        return false;
+    }
+
+    window.setInterval('flakeFall();', 100);
+    //]]>
+</script>
+
+</head>
+
+<body>
+
+
+    <div class="main">
+        <div class="grid wide wide-low">
+            <div class="row">
+                <div class="col l-12 m-12">
+                    <!-- Giới thiệu -->
+                    <div class="intro" style="m">
+                        <!-- Phần avata và tên -->
+                        <div class="intro-user">
+                            <div class="intro-user-left">
+                                <img src="https://i.imgur.com/KsQyeSp.jpg" alt="" class="intro-user-avt">
+                            </div>
+                            <div class="intro-user-right">
+                                <h1 class="intro-user-right__name">Trần Đình Tú</h1>
+                                <div class="intro-user-right__job">
+                                    Mảng Kiến Tạo
+                                </div>
+                                <ul class="intro-user-right__social">
+                                    <li class="intro-user-right__social-icon facebook">
+                                        <div class="tooltip">Facebook</div>
+                                        <a href="https://www.facebook.com/trandinhtu7667">
+                                            <span id="tooltip-icon" class="facebook">
+                                                <i class="fab fa-facebook" id="tooltip-icon--icon"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <!--<li class="intro-user-right__social-icon tiktok">-->
+                                    <!--    <div class="tooltip">TikTok</div>-->
+                                    <!--    <a href="Chưa Có Thông Tin">-->
+                                    <!--        <span id="tooltip-icon" class="tiktok">-->
+                                    <!--            <i class="fab fa-tiktok" id="tooltip-icon--icon"></i>-->
+                                    <!--        </span>-->
+                                    <!--    </a>-->
+                                    <!--</li>-->
+                                    <li class="intro-user-right__social-icon instagram">
+                                        <div class="tooltip">Instagram</div>
+                                        <a href="Chưa Có Thông Tin">
+                                            <span id="tooltip-icon" class="instagram">
+                                                <i class="fab fa-instagram" id="tooltip-icon--icon"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+
+                        <!-- Phần liên hệ .. -->
+
+                        <div class="intro-contact">
+                            <ul class="intro-contact-list">
+                                <li class="intro-contact-list__item">
+                                    <span class="overhead">
+                                        Email
+                                    </span>trandinhtu******@gmail.com
+                                </li>
+                                <li class="intro-contact-list__item">
+                                    <span class="overhead">
+                                        Số Điện Thoại
+                                    </span> 0347******
+                                </li>
+                            </ul>
+                            <ul class="intro-contact-list">
+                                <li class="intro-contact-list__item">
+                                    <span class="overhead">
+                                        Ngày Sinh
+                                    </span> 07/06/2006
+                                </li>
+                                <li class="intro-contact-list__item">
+                                    <span class="overhead">
+                                        Địa Chỉ
+                                    </span> Thanh Tiến/Võ Liệt/Thanh Chương/Nghệ An/Việt Nam.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row container">
+                <!-- Thanh công cụ -->
+                <div class="col l-2 c-12">
+                    <div class="options">
+                        <ul class="option ">
+                            <li class="option-item active">
+                                <div class="option-item-icon">
+                                    <script src="https://cdn.lordicon.com/libs/mssddfmo/lord-icon-2.1.0.js"></script>
+                                    <lord-icon src="https://cdn.lordicon.com/eszyyflr.json" trigger="morph" colors="primary:#263da3,secondary:#4e2099" style="width:65px;height:65px;">
+                                    </lord-icon>
+                                    Bản Thân
+                                </div>
+                            </li>
+                            <li class="option-item">
+                                <div class="option-item-icon">
+                                    <script src="https://cdn.lordicon.com/libs/mssddfmo/lord-icon-2.1.0.js"></script>
+                                    <lord-icon src="https://cdn.lordicon.com/wxnxiano.json" trigger="morph" colors="primary:#263da3,secondary:#4e2099" style="width:65px;height:65px">
+                                    </lord-icon>
+                                    Học Vấn
+                                </div>
+                            </li>
+                            <li class="option-item ">
+                                <div class="option-item-icon">
+                                    <script src="https://cdn.lordicon.com/libs/mssddfmo/lord-icon-2.1.0.js"></script>
+                                    <lord-icon src="https://cdn.lordicon.com/iltqorsz.json" trigger="morph" colors="primary:#263da3,secondary:#4e2099" style="width:65px;height:65px;">
+                                    </lord-icon>
+                                    Mục Tiêu
+                                </div>
+                            </li>
+                            <li class="option-item ">
+                                <div class="option-item-icon">
+                                    <script src="https://cdn.lordicon.com/libs/mssddfmo/lord-icon-2.1.0.js"></script>
+                                    <lord-icon src="https://cdn.lordicon.com/rjzlnunf.json" trigger="morph" colors="primary:#263da3,secondary:#4e2099" style="width:65px;height:65px">
+                                    </lord-icon>
+                                    Sở Thích
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+                <!-- Mục mở rộng tương ứng -->
+                <div class="col l-10">
+                    <div class="extends">
+                        <!-- Bản thân -->
+                        <ul class="extend active">
+                            <li class="extend-item">
+                                <div class="extend-item--title-header">
+                                    <h1 class="extend-item--title-h1">Giới thiệu</h1>
+                                </div>
+                                <p class="extend-item-para">
+                                    Mình được ví như là một mảng kiến tạo tự do. Mình đang học và mày mò,vọc vạch những kiến thức chưa được học và đang muốn cố gắng học và vọc :3
+                                </p>
+                                <p class="extend-item-para">
+                                    Hiện tại mình vừa học vừa làm cũng như phát triển bản thân để ngày một hoàn thiện hơn. Đối với mình mỗi ngày chỉ cần cố gắng hơn một chút thì tương lai sau này sẽ chắc chắn tốt hơn
+                                </p>
+                            </li>
+                            <li class="extend-item">
+                                <div class="extend-item--title-body">
+                                    <h3 class="extend-item--h3">Những Cái Mình Vọc Và Tạo Ra:</h3>
+                                </div>
+                                <div class="row">
+                                    <div class="col l-6 m-6">
+                                        <a href="Link Tài Nguyên" class="case">
+                                            <div id="zoom">
+                                                <div class="case-item">
+                                                    <img src="Link ảnh imgur" alt="" class="case-item--img">
+                                                </div>
+                                                <h3 class="case-item--h3">Sub76</h3>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col l-6 m-6">
+                                        <a href="CHƯA CÓ THÔNG TIN" class="case">
+                                            <div id="zoom">
+                                                <div class="case-item">
+                                                    <img src="link imgur Ảnh" alt="" class="case-item--img">
+                                                </div>
+                                                <h3 class="case-item--h3">Sub76</h3>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col l-6 m-6">
+                                        <a href="Link tài nguyên" class="case">
+                                            <div id="zoom">
+                                                <div class="case-item">
+                                                    <img src="Link imgur hình ảnh" alt="" class="case-item--img">
+                                                </div>
+                                                <h3 class="case-item--h3">Số FOLOW</h3>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col l-6 m-6">
+                                        <a href="link TÀI NGUYÊN " class="case">
+                                            <div id="zoom">
+                                                <div class="case-item">
+                                                    <img src="Link imgur hình ảnh" alt="" class="case-item--img">
+                                                </div>
+                                                <h3 class="case-item--h3">Dịch Vụ Social</h3>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="extend-item">
+                                <div class="extend-item--title-body">
+                                    <h3 class="extend-item--h3">Những câu nói cho mình cảm hứng</h3>
+                                </div>
+                                <div class="slide">
+                                    <!-- Từng câu nói -->
+                                    <div class="slide-users active fade">
+                                        <div class="slide-avatar">
+                                            <img src="https://i.imgur.com/qq7akWb.jpg" alt="" class="slide-avatar--img">
+                                        </div>
+                                        <div class="slide-text fade">
+                                            <h4 class="slide-text--title">Hồ Chí Minh </h4>
+                                            <p class="slide-text--para">
+                                                 "Các ông giết 10 người của chúng tôi, chúng tôi giết 1 người của ông, nhưng cuối cùng các ông sẽ là người kiệt sức" - Hồ Chí Minh
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="slide-users fade">
+                                        <div class="slide-avatar">
+                                            <img src="https://i.imgur.com/6Qe1Huv.jpg" alt="" class="slide-avatar--img">
+                                        </div>
+                                        <div class="slide-text">
+                                            <h4 class="slide-text--title">Võ Thị Sáu </h4>
+                                            <p class="slide-text--para">
+                                                “Không cần bịt mắt tôi. Hãy để cho đôi mắt tôi được nhìn đất nước thân yêu đến giây phút cuối cùng và tôi có đủ can đảm để nhìn thẳng vào họng súng của các người!”
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="slide-users fade">
+                                        <div class="slide-avatar">
+                                            <img src="https://i.imgur.com/wIQDuy8.jpg" alt="" class="slide-avatar--img">
+                                        </div>
+                                        <div class="slide-text">
+                                            <h4 class="slide-text--title">Nick Vujicic</h4>
+                                            <p class="slide-text--para">
+                                                "Nếu bạn không nhận được một điều kỳ diệu, hãy tự mình trở thành một điều kỳ diệu.
+→ Giữa gần 8 tỷ người trên thế giới này bạn chẳng những không hề đặc biệt mà còn vô cùng tầm thường, nhưng bạn có thể trở nên đặc biệt và thành công nếu bạn cố gắng phấn đấu. Nếu bạn có niềm tin, không gì là không thể."
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="slide-users fade">
+                                        <div class="slide-avatar">
+                                            <img src="https://i.imgur.com/wfA8oAx.jpg" alt="" class="slide-avatar--img">
+                                        </div>
+                                        <div class="slide-text">
+                                            <h4 class="slide-text--title">Mark Zuckerberg</h4>
+                                            <p class="slide-text--para">
+                                                "Rủi ro lớn nhất là khi bạn không chấp nhận bất kỳ rủi ro nào. Trong một thế giới thay đổi thực sự nhanh chóng, chiến lược duy nhất được đảm bảo thất bại là không chấp nhận rủi ro."
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="slide-users fade">
+                                        <div class="slide-avatar">
+                                            <img src="https://i.imgur.com/UNAiI9D.jpg" alt="" class="slide-avatar--img">
+                                        </div>
+                                        <div class="slide-text">
+                                            <h4 class="slide-text--title">Tim Cook</h4>
+                                            <p class="slide-text--para">
+                                                "Công việc mang ý nghĩa mới khi bạn cảm thấy đang đi đúng hướng. Nếu không, nó chỉ là một công việc và cuộc sống dường như quá ngắn ngủi cho điều đó."
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="slide-users fade">
+                                        <div class="slide-avatar">
+                                            <img src="https://i.imgur.com/nwBtrVB.jpg" alt="" class="slide-avatar--img">
+                                        </div>
+                                        <div class="slide-text">
+                                            <h4 class="slide-text--title">Michael Dell</h4>
+                                            <p class="slide-text--para">
+                                                "Bạn không cần phải là một thiên tài, hay một người có tầm nhìn, hay thậm chí tốt nghiệp đại học để thành công. Bạn chỉ cần có nền tảng và ước mơ."
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="slide-users fade">
+                                        <div class="slide-avatar">
+                                            <img src="https://i.imgur.com/Egs0nD1.jpg" alt="" class="slide-avatar--img">
+                                        </div>
+                                        <div class="slide-text">
+                                            <h4 class="slide-text--title">Elon Musk</h4>
+                                            <p class="slide-text--para">
+                                                "Giá trị của sự cần mẫn nằm ở chỗ nó tích tụ mầm mống cho những điều may mắn. Càng chăm chỉ bao nhiêu, tôi càng được may mắn bấy nhiêu."
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <a class="prev"><i class="fas fa-chevron-left"></i></a>
+                                    <a class="next"><i class="fas fa-chevron-right"></i></a>
+                                </div>
+                                <!-- Nút slide -->
+                                <div class="tab">
+                                    <span class="tab-item active fade "></span>
+                                    <span class="tab-item fade "></span>
+                                    <span class="tab-item fade"></span>
+                                    <span class="tab-item fade"></span>
+                                    <span class="tab-item fade"></span>
+                                    <span class="tab-item fade"></span>
+                                    <span class="tab-item fade"></span>
+                                </div>
+                            </li>
+                        </ul>
+                        <!-- Học vấn -->
+                        <ul class="extend">
+                            <div class="extend-item--title-header">
+                                <h1 class="extend-item--title-h1">Học vấn</h1>
+                            </div>
+                            <li class="extend-item">
+                                <div class="extend-item-text-title">
+                                    <h2 class="extend-item-text-title--h2">
+                                    <img src="https://i.imgur.com/c4iSN1i.png" alt="" class="extend-item-text-title--img">
+                                    Giáo dục 
+                                </h2>
+                                    <div class="extend-item--bodys">
+                                        <div class="extend-item--body active-line">
+                                            <h4 class="extend-item-text-title--h4">
+                                            Tốt Nghiệm THPT Cố Gắng Thi Đỗ Và Bước Vào Trường ĐẠI HỌC
+                                    
+                                        </h4>
+                                            <p class="extend-item-para-title">
+                                                2021 - 2023 - TƯƠNG LAI
+                                            </p>
+                                            <p class="extend-item-para-text">
+                                                Mình đang học tại Trường THPT ĐẶNG THÚC HỨA Chuyên Môn(Toán,Văn,Anh)(Thuộc Khối D:3) Mình Đang Cố Gắng Học Tập Và Rèn Luyện Những Kiến Thức Nền Tảng Để Sau Này Áp Dụng Vào Lĩnh Vực Đời Sống và Xã Hội
+                                            </p>
+                                        </div>
+                                        <div class="extend-item--body">
+                                            <h4 class="extend-item-text-title--h4">
+                                            Trường Đời
+                                        </h4>
+                                            <p class="extend-item-para-title">
+                                                01/07/2021 - Nay
+                                            </p>
+                                            <p class="extend-item-para-text">
+                                                Mình thấy những người bạn đầu của mình đi làm một thời gian, Sau đó nhận ra là đi làm thuê cực kỳ vất vả và gò bó thời gian mà lại khó thể giàu được nên mình đã quyết định cố gắng và vọc vạch những cái dễ nhất trên nền tảng.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="extend-item">
+                                <div class="extend-item-text-title">
+                                    <h2 class="extend-item-text-title--h2">
+                                    <img src="https://i.imgur.com/UQIivmL.png" alt="" class="extend-item-text-title--img">
+                                    Kinh nghiệm
+                                </h2>
+                                    <div class="extend-item--bodys">
+                                        <div class="extend-item--body active-line">
+                                            <h4 class="extend-item-text-title--h4">
+                                            Social Media
+                                        </h4>
+                                            <p class="extend-item-para-title">
+                                                2021 - Đang Học Mà :V
+                                            </p>
+                                            <p class="extend-item-para-text">
+                                                Mình đang học và có kết hợp làm thêm mảng dịch vụ FB cụ thể là Dịch vụ tăng SUB,FOLOW,LIKE,V.VVV...
+                                            </p>
+                                        </div>
+                                        <div class="extend-item--body active-line">
+                                            <h4 class="extend-item-text-title--h4">
+                                            Lúc đó cũng kiếm được một khoản kha khá từ nghề này, Nhưng không thể đạt mức thu nhập mình mong muốn
+                                        </h4>
+                                            <p class="extend-item-para-title">
+                                                2021 - Nay
+                                            </p>
+                                            <p class="extend-item-para-text">
+                                                Mình đang học ở trường ở lớp và mày mò nhiều cái để có thể hiểu biết nhiều kiến thức hơn
+                                            </p>
+                                        </div>
+                                        <div class="extend-item--body">
+                                            <h4 class="extend-item-text-title--h4">
+                                           Mình vẫn đang và cố gắng học tập mày mò những cái mình chưa biết cần biết và đã biết :3
+                                        </h4>
+                                            <p class="extend-item-para-title">
+                                               Thông Tin về mình chỉ vỏn vẹn ít vậy thôi!!!
+                                            </p>
+                                            <p class="extend-item-para-text">
+                                                Cuối cùng thì mình tỉnh giấc và nhận ra rằng tất cả các điều ở trên chỉ là đang mớ ngủ =))
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="extend-item ">
+                                <div class="extend-item-text-title">
+                                    <h2 class="extend-item-text-title--h2">
+                                    Kỹ năng của tôi
+                                </h2>
+                                    <div class="skills-section">
+                                        <div class="container-skills">
+                                            <div class="container-skills-progress">
+                                                <div class="container-skills-progress-bar" data-progress="50">
+                                                    <p>Kinh Nghiệm Chụp Ảnh</p>
+                                                    <span>50%</span>
+                                                </div>
+                                            </div>
+                                            <div class="container-skills-progress">
+                                                <div class="container-skills-progress-bar" data-progress="45">
+                                                    <p>Chỉnh Sửa Bằng PS,LIGHTROOM,TẠO ĐỘ MÀU</p>
+                                                    <span>45%</span>
+                                                </div>
+                                            </div>
+                                            <div class="container-skills-progress">
+                                                <div class="container-skills-progress-bar" data-progress="30">
+                                                    <p>HTML</p>
+                                                    <span>30%</span>
+                                                </div>
+                                            </div>
+                                            <div class="container-skills-progress">
+                                                <div class="container-skills-progress-bar" data-progress="20">
+                                                    <p>PHP</p>
+                                                    <span>20%</span>
+                                                </div>
+                                            </div>
+                                            <div class="container-skills-progress">
+                                                <div class="container-skills-progress-bar" data-progress="10">
+                                                    <p>Java</p>
+                                                    <span>10%</span>
+                                                </div>
+                                            </div>
+                                            <div class="container-skills-progress">
+                                                <div class="container-skills-progress-bar" data-progress="10">
+                                                    <p>CSS</p>
+                                                    <span>10%</span>
+                                                </div>
+                                            </div>
+                                            <div class="container-skills-progress">
+                                                <div class="container-skills-progress-bar" data-progress="10">
+                                                    <p>XML</p>
+                                                    <span>10%</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <!-- Mục tiêu -->
+                        <ul class="extend">
+                            <div class="extend-item--title-header">
+                                <h1 class="extend-item--title-h1">Mục tiêu</h1>
+                            </div>
+                            <!-- Ngắn hạn -->
+                            <li class="extend-item">
+                                <div class="extend-item-text-title">
+                                    <div class="extend-item--title-body">
+                                        <h3 class="extend-item--h3">TU LUYỆN HỌC TẬP</h3>
+                                    </div>
+
+                                    <div class="extend-item--bodys">
+                                        <div class="extend-item--body active-line">
+                                            <h4 class="extend-item-text-title--h4">
+                                            Học và rèn luyện 
+                                        </h4>
+                                            <p class="extend-item-para-title">
+                                                Lợi Ích:
+                                            </p>
+                                            <p class="extend-item-para-text">
+                                                Học tập đem lại cho con người ta tri thức, kỹ năng và kiến thức để phục vụ cho cuộc sống. Hiểu được tầm quan trọng của việc học, không ít bố mẹ đã đầu tư rất nhiều cho trẻ để hy vọng con có thể phấn đấu trở thành người thành đạt, giỏi giang. Thực tế cũng cho thấy kiến thức là vô cùng cần thiết không chỉ cho cuộc sống mà còn cho tương lai, ước mơ của trẻ. 
+
+ 
+
+                                                Thế nhưng, không phải cứ học, học mọi lúc mọi nơi là cách đúng đắn. Không khó để thấy có vô số phụ huynh vẫn đang than rằng tại sao con học nhiều, học say mê thế mà hiệu quả đem lại vẫn rất thấp. Điều này khiến cho cả bố mẹ và các con đều trở nên mệt mỏi. Trẻ cũng vì thế mà không muốn tiếp tục cố gắng nữa. 
+                                                
+                                                 
+                                                
+                                                Chính vì thế, để hiệu suất học được tăng cao thì trước tiên trẻ phải rèn luyện được các kỹ năng cần thiết về học và tự học. Chỉ khi nào các con biết ứng dụng các kỹ năng này vào thực tiễn thì lúc đó mới có thể rút ngắn được thời gian học tập mà vẫn đảm bảo được hiệu quả đem lại. 
+                                                
+                                                 
+                                                
+                                                Kỹ năng học và tự học có thể hiểu đơn giản là một số bí quyết để trẻ có thể tiếp cận kiến thức một cách chủ động và dễ dàng hơn. Với những kỹ năng mà mình có được, trẻ sẽ có thêm động lực, sự tự tin để vươn đến thành công. Các con phải có tinh thần tự giác và biết được mình sẽ làm gì trong từng buổi học thì mới có thể đem đến sự hiệu quả. 
+                                                
+                                                 
+                                                
+                                                Do đó, rèn luyện kỹ năng học và tự học là một trong những điều kiện tất yếu mà trẻ cần phải ghi nhớ. Việc tự mình tìm ra phương pháp và cách thức sẽ không đơn giản như bố mẹ vẫn nghĩ. Chính vì thế, với vai trò là người dẫn dắt, định hướng con thì các bậc phụ huynh nên hỗ trợ và đưa ra cho trẻ những giải pháp phù hợp để khắc phục tình trạng học hoài không nhớ, học hoài không hiểu. 
+                                                
+                                                Lên kế hoạch học tập phù hợp, chi tiết
+                                                Trước tiên, để có những giờ tự học hiệu quả thì các con cần phải biết được mình sẽ làm gì và nên làm gì trong khoảng thời gian học. Chính vì thế, trước tiên, bố mẹ nên khuyến khích và hỗ trợ trẻ tạo lập một bản kế hoạch học tập phù hợp. 
+                                                
+                                                 
+                                                
+                                                Kế hoạch học tập đúng đắn, đầy đủ dựa trên một số yếu tố sau: năng lực học tập của con, sở thích, phương pháp học, mục tiêu đối với môn học, khả năng tiếp thu kiến thức… Các bậc phụ huynh cần phải biết được con cần gì, muốn gì và sức lực của trẻ có đủ để thực hiện những mong muốn đó hay không?
+                                                
+                                                 
+                                                
+                                                Tất cả sẽ đều được đưa vào kế hoạch học tập. Bố mẹ không nên đưa ra một lộ trình học tập quá dài cho con. Bởi lẽ sẽ mất rất nhiều thời gian để trẻ có thể tiến đến được mục tiêu đó. Kế hoạch học tập nên đưa ra ngắn hạn và có thể điều chỉnh dễ dàng để phù hợp hơn với tình hình thực tế. 
+                                                
+                                                 
+                                                
+                                                Mỗi buổi tự học của con sẽ trở nên có định hướng hơn khi có kế hoạch chi tiết. Trẻ sẽ dựa trên lộ trình đã đưa ra từ trước đó để cố gắng, phấn đấu nhiều hơn. 
+                                                
+                                                Rèn luyện kỹ năng đọc - hiểu vấn đề
+                                                Trong quá trình tự học, con sẽ chủ yếu tìm hiểu thông tin qua sách vở, báo chí, internet. Do đó, kỹ năng đọc hiểu là một trong những thứ vô cùng cần thiết đối với trẻ. Thay vì việc ở trên lớp, con có giáo viên chia sẻ kiến thức, truyền đạt kinh nghiệm thì đối với việc tự học trẻ sẽ phải tự mình giải quyết từng vấn đề. 
+                                                
+                                                 
+                                                
+                                                Chính vì thế, một trong những cách để rèn luyện kỹ năng đọc hiểu đó chính là cần phải để cho các con biết mình nên tìm kiếm nguồn thông tin ở đâu. Sau khi đã tra cứu thành công những thứ mà mình cần, con phải đọc hiểu, chắt lọc và ghi chép từng vấn đề sao cho cho dễ ghi nhớ. 
+                                                
+                                                 
+                                                
+                                                Trong khi đọc, trẻ sẽ dễ dàng ghi nhớ được kiến thức một cách dễ dàng hơn. Nguyên nhân chính là do các con là người tự tìm hiểu, tự đọc, tự ghi nhớ. Tập thói quen ghi chép có hệ thống
+                                                Ghi chép có hệ thống cũng là một trong những cách rèn luyện kỹ năng tự học. Bởi lẽ, việc ghi chép ngoài đầy đủ, chính xác thì còn phải dễ hiểu, dễ tìm kiếm. Chính vì vậy một số tips nhỏ dành cho việc ghi chép của các con sẽ là: lưu ý đến những từ khóa, công thức, định nghĩa của bài học. Đây là một trong những phần kiến thức quan trọng nhất mà trẻ cần phải hiểu và ghi nhớ. 
+                                                
+                                                 
+                                                
+                                                Tiếp theo, các con có thể sử dụng giấy note, bút nhiều màu để nhấn mạnh những phần mà mình cần phải học thuộc. Ghi chép dạng sơ đồ tư duy cũng là cách hiệu quả để ghi nhớ kiến thức. Tuy nhiên, với cách này thì các con cần phải tốn nhiều thời gian hơn để rèn luyện các kỹ năng bởi đây là phương pháp ghi chép đòi hỏi sự tư duy và hình dung vấn đề phức tạp hơn. 
+                                                
+                                                 
+                                                
+                                                Không phải chỉ ghi chép tất cả những thứ mình đã được học, được đọc là đầy đủ. Việc làm thế nào để mình hiểu và ghi nhớ kiến thức còn quan trọng hơn rất nhiều. 
+                                                
+                                                Thực hành, làm bài tập thật nhiều
+                                                Sau khi hiểu và ghi nhớ được kiến thức cần thiết cho chương trình học. Các con nên thực hành, làm bài tập thật nhiều để ôn luyện lại bài học. Việc làm bài tập cũng là một trong những kỹ năng cần thiết mà trẻ nên ghi nhớ. 
+                                                
+                                                 
+                                                
+                                                Trước tiên, các con nên làm bài tập theo thứ tự từ dễ đến khó. Bắt đầu từ những thứ cơ bản trong sách giáo khoa sau đó nâng cao dần lên. Để việc học tập trở nên hiệu quả thì trẻ không nên đốt cháy giai đoạn, vội vàng học những thứ khó mà bỏ qua bài tập dễ. 
+                                                
+                                                 
+                                                
+                                                Chỉ khi nào các con thuần thục, ghi nhớ kỹ lưỡng được cách làm các bài tập trong sách giáo khoa thì mới nên nâng cao mức độ và lượng kiến thức mà mình cần phải học. Thời gian gần đây, hầu hết chương trình thi dành cho các con đều sử dụng chủ yếu các kiến thức cơ bản, được giáo viên dạy ở trên lớp và có trong sách giáo khoa. 
+                                                
+                                                 
+                                                
+                                                Chính vì thế, nếu muốn đạt điểm cao và thành tích tốt hơn trong các kỳ thi thì nắm chắc, nắm vững là một trong những việc cần phải thực hiện.                                                 
+                                            </p>
+                                      
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- Dài hạn -->
+                            <li class="extend-item">
+                                <div class="extend-item-text-title">
+                                    <div class="extend-item--title-body">
+                                        <h3 class="extend-item--h3">Khi ổn định kiến thức Và hiểu biết nhiều hơn</h3>
+                                    </div>
+
+                                    <div class="extend-item--bodys">
+                                        <div class="extend-item--body active-line">
+                                            <h4 class="extend-item-text-title--h4">
+                                            Sẽ phát triển khả năng,năng lực của bản thân 
+                                        </h4>
+                                            <p class="extend-item-para-title">
+                                                Thời Gian Không Rõ
+                                            </p>
+                                            <p class="extend-item-para-text">
+                                            Ngày Một Phát Triển Cố Gắng Rèn Luyện Cao Hơn
+                                        </div>
+                                    </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <!-- Sở thích -->
+                        <ul class="extend">
+                            <div class="extend-item--title-header">
+                                <h1 class="extend-item--title-h1">Sở thích</h1>
+                            </div>
+                            <li class="extend-item">
+                                <div class="extend-item-text-title">
+                                    <div class="extend-item-text-title--contain">
+                                        <h2 class="extend-item-text-title--h2">
+                                        <img src="https://i.imgur.com/W8oSOO4.png" alt="">
+                                        Bóng Chuyền
+                                    </h2>
+                                        <div class="ententain" onclick="javascript:window.location.href='Không Có Link ">
+                                            <div class="ententain-avatar">
+                                                <a href="Không Có Link">
+                                                    <img src="https://i.imgur.com/HvmskfA.jpg" alt="" class="ententain-avatar--avt">
+                                                </a>
+                                            </div>
+                                            <div class="ententain-text">
+                                                <a href="Không Có Link">
+                                                    <h3 class="ententain-text--h3">
+                                                    Bóng Chuyền Trẻ
+                                                </h3>
+                                                </a>
+                                                <span class="ententain-text-span">Bóng chuyền là 1 môn thể thao Olympic, trong đó 2 đội được tách ra bởi 1 tấm lưới. Mỗi đội cố gắng ghi điểm bằng cách đưa được trái bóng chạm phần sân đối phương theo đúng luật quy định.[1]
+
+                                                    Bộ luật hoàn chỉnh khá rộng. Nhưng sơ lược, cách chơi như sau: vận động viên ở 1 đội bắt đầu lượt đánh bằng cách phát bóng (thảy hoặc thả trái bóng và đánh bằng bàn tay hoặc cánh tay), từ ngoài đường biên cuối sân, qua lưới, và sang phần sân của đội nhận bóng. Đội nhận bóng không được để bóng chạm mặt đất bên phần sân đội mình. Họ được phép chạm bóng tối đa 3 lần. Thông thường, 2 lần chạm đầu tiên được dùng để chuẩn bị cho đội tấn công, đội cố gắng trả trái bóng qua lưới sao cho đội bên kia không thể chặn trái để không chạm mặt đất phần sân đội mình.
+                                                    
+                                                    Lượt bóng tiếp tục, với mỗi đội được phép chạm bóng nhiều nhất 3 lần liên tục, đến khi một trong 2 điều xảy ra (1): đội thắng lượt bóng, làm cho trái bóng chạm được mặt đất phần sân đối phương; hay (2): đội phạm lỗi và thua lượt banh. Đội thắng lượt bóng ghi được 1 điểm, và được phép giao banh ở lượt tiếp theo. Một vài lỗi phổ thông thường phạm phải là:
+                                                    
+                                                    Khiến bóng chạm đất ngoài phần sân đối phương hoặc không đưa được bóng qua lưới;
+                                                    "Cầm hoặc ném" bóng;
+                                                    "2 chạm": 2 lần chạm bóng bởi cùng một vận động viên;
+                                                    4 lần chạm bóng liên tục bởi cùng một đội;
+                                                    Lỗi chạm lưới: chạm vào lưới trong khi lượt bóng chưa kết thúc;
+                                                    Trái bóng thường được chơi bằng bàn tay hoặc cánh tay, nhưng người chơi được phép đập hoặc đẩy (chạm bóng trong thời gian ngắn) bằng bất kì bộ phận nào trên cơ thể.
+                                                    
+                                                    Có khá nhiều kĩ thuật chơi trong bóng chuyền, bao gồm "spiking" (đập bóng) và "blocking" (chắn bóng) (bởi vì những ký thuật chơi đó được thực hiện bên trên lưới nhảy thẳng đứng là một trong những kĩ năng được chú trọng trong thể thao) cũng như "passing" (bắt bước 1), "setting" (chuyền 2), và các vị trí chơi đặc thù và cấu trúc chơi phòng thủ và tấn công.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <li class="extend-item">
+                                    <div class="extend-item-text-title">
+                                        <div class="extend-item-text-title--contain">
+                                            <h2 class="extend-item-text-title--h2">
+                                            <img src="https://i.imgur.com/685TraJ.png" alt="">
+                                            Bóng Đá
+                                        </h2>
+                                            <div class="ententain" onclick="javascript:window.location.href='Không Có Link ">
+                                                <div class="ententain-avatar">
+                                                    <a href="Không Có Link">
+                                                        <img src="https://i.imgur.com/ypzIY2M.jpg" alt="" class="ententain-avatar--avt">
+                                                    </a>
+                                                </div>
+                                                <div class="ententain-text">
+                                                    <a href="Không Có Link">
+                                                        <h3 class="ententain-text--h3">
+                                                        Bóng Đá Trẻ
+                                                    </h3>
+                                                    </a>
+                                                    <span class="ententain-text-span">Bóng đá là 1 bộ môn thể thao có sự vận động mang tính đồng đội rất cao. Với 1 sân bóng rộng lớn, các đội bóng gồm (5 người - 7 người - 11 người) sẽ cùng tranh quyền kiểm soát 1 quả bóng. Đây tưởng chừng là dễ nhưng thật ra rất khó bởi cần có nguồn thể lực cực lớn cùng những kỹ thuật đi bóng, ghi bàn,...điêu luyện. Bằng sự phối hợp giữa những thành viên (đồng đội) trong đội bóng, bóng sẽ được dẫn và chuyền từ chân người này sang chân người khác sao cho điểm đến cuối cùng là khung thành của đội đối thủ. Ngoại trừ vị trí thủ môn thì không ai khác có quyền chơi bóng bằng tay, tất cả đều nhờ vào sự vận động của đôi chân là chính.
+
+                                                        Đây là một môn thể thao được cả thế giới hâm môn và theo dõi. Bên cạnh đó, nhiều người hâm mộ có tài năng đã biến niềm đam mê trở thành động lực để tập luyện. Từ đó, nhiều đội bóng ở cấp độ nghiệp dư, bán chuyên, chuyên nghiệp đã ra đời. Đồng thời cũng tạo ra nhiều giải đấu ở cấp độ từ nhỏ đến lớn để thi đấu và chọn ra ngôi vị đứng đầu.
+                                                        
+                                                        Nhắc đến ý nghĩa từ đá bóng, nhiều người sẽ khó mà hình dung được những gì mà môn thể thao này đã cống hiến cho thế giới to lớn đến nhường nào. Nền kinh tế của thế giới cũng bị ảnh hưởng bởi bộ môn thể thao vua này. Không những thế, nhờ vào những trận đấu cầu mà các quốc gia trên thế giới có cơ hội cọ xát, giao lưu văn hóa với nhau, tạo nên tinh thần đoàn kết của các quốc gia trên thế giới.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <li class="extend-item">
+                                        <div class="extend-item-text-title">
+                                            <div class="extend-item-text-title--contain">
+                                                <h2 class="extend-item-text-title--h2">
+                                                <img src="https://i.imgur.com/8z7fq5k.png" alt="">
+                                                Cầu Lông
+                                            </h2>
+                                                <div class="ententain" onclick="javascript:window.location.href='Không Có Link ">
+                                                    <div class="ententain-avatar">
+                                                        <a href="Không Có Link">
+                                                            <img src="https://i.imgur.com/wjpiEHh.jpg" alt="" class="ententain-avatar--avt">
+                                                        </a>
+                                                    </div>
+                                                    <div class="ententain-text">
+                                                        <a href="Không Có Link">
+                                                            <h3 class="ententain-text--h3">
+                                                            Cầu Lông Nâng cao sự nhanh nhẹn sức khỏe cho con người
+                                                        </h3>
+                                                        </a>
+                                                        <span class="ententain-text-span">Cầu lông (Đánh cầu) chính là bộ môn thể thao dùng vợt để thi đấu. Thông thường sẽ chia ra 2 đội chơi với 2 hình thức thi đấu đơn hoặc đôi. Nếu đấu đơn thì mỗi đội 1 người thi đấu. Đấu đôi thì mỗi đội 2 người thi đấu. Đấu đôi cũng được phân thành những hình thức riêng như đấu đôi nam (2 nam mỗi đội), đôi nữ (2 nữ mỗi đội) và đấu đôi nam nữ (mỗi đội 1 nam - 1 nữ). 
+
+                                                            Sân thi đấu cho bộ môn cầu lông là sân hình chữ nhật. Ở giữa sân sẽ có đường mức phân chia thành 2 nửa sân bằng nhau và được giăng lưới. Quả cầu lông bay qua khỏi lưới, qua phần sân của đội nào và chạm đất (còn trong sân) thì ghi được điểm. Luật cầu lông cụ thể sẽ được cập nhật trong bài viết tiếp theo.
+                                                            
+                                                            Cầu lông là quả cầu được làm từ lông gia cầm tự nhiên hoặc nhân tạo (nhựa). Phần thiết kế này sẽ làm tạo ra lực cản rất lớn nên người thi đấu cũng cần điều tiết lực đánh sao cho hợp lý nhất. Vợt cầu lông cũng là dụng cụ cần được chú trọng đầu tư trong những trận đấu chuyên nghiệp. </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <li class="extend-item">
+                                            <div class="extend-item-text-title">
+                                                <div class="extend-item-text-title--contain">
+                                                    <h2 class="extend-item-text-title--h2">
+                                                    <img src="https://i.imgur.com/lHKuM14.png" alt="">
+                                                    Chạy Bộ
+                                                </h2>
+                                                    <div class="ententain" onclick="javascript:window.location.href='Không Có Link ">
+                                                        <div class="ententain-avatar">
+                                                            <a href="Không Có Link">
+                                                                <img src="https://i.imgur.com/aI7gEoa.jpg" alt="" class="ententain-avatar--avt">
+                                                            </a>
+                                                        </div>
+                                                        <div class="ententain-text">
+                                                            <a href="Không Có Link">
+                                                                <h3 class="ententain-text--h3">
+                                                                Chạy Bền-Rèn Luyện Sức Khỏe
+                                                            </h3>
+                                                            </a>
+                                                            <span class="ententain-text-span">Với thời hiện đại ngày nay, chạy bền đã không còn đơn giản chỉ là một môn thể thao để rèn luyện sức khỏe đơn thuần mà nó còn được coi là một phong cách sống. Việc tập luyện chạy bền không còn chỉ là để thi đấu, để chiến thắng người khác hay vì vấn đề tiền bạc, mà đơn giản chỉ là để chính chúng ta học cách vươn lên chiến thắng bản thân mình và để tiến bộ hơn mỗi ngày. 
+                                                                Đối với việc chạy bộ ngày nay, ngoài học hỏi những kinh nghiệm chạy bộ cũng như để vượt qua bản thân, thì bạn cũng nên tìm hiểu về ý nghĩa của chạy bền trong đời sống con người thông qua một số điều như sau: 
+                                                                Khi đến với chạy bộ, việc đầu tiên bạn đừng nghĩ đến việc phải cố gắng quá mức, mà đơn giản là hãy tận hưởng sự thoải mái,không cần tính toán hay so đo cũng như ganh đua với người khác. 
+                                                                Hơn nữa, cũng đừng để việc chạy bộ trở thành gánh nặng của bạn, bởi việc cố gắng chịu đựng chạy bộ mỗi ngày sẽ tương đương với ép buộc bản thân, và điều đó khiến bạn mất đi ý nghĩa của mình, cũng như đam mê sẽ không còn nữa. 
+                                                                Ngoài ra, bạn hãy cố gắng chạy bền theo những ý định của mình, không cần sao chép một ai khác, cũng như không cần phải phụ thuộc vào thành tích, chỉ đơn giản là chạy bộ nhẹ nhàng và ngắm nhìn cảnh quan xung quanh mình và tận hưởng quá trình tập luyện là đủ. Đây cũng là một cách để bạn có thể tự mình trả lời câu hỏi chạy bền có tác dụng gì và tận hưởng những lợi ích mà chạy bền đem lại. </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <li class="extend-item">
+                                                <div class="extend-item-text-title">
+                                                    <div class="extend-item-text-title--contain">
+                                                        <h2 class="extend-item-text-title--h2">
+                                                        <img src="https://i.imgur.com/2UiKgge.png" alt="">
+                                                        Nghe Nhạc
+                                                    </h2>
+                                                        <div class="ententain" onclick="javascript:window.location.href='Không Có Link ">
+                                                            <div class="ententain-avatar">
+                                                                <a href="Không Có Link">
+                                                                    <img src="https://i.imgur.com/2O7vaJs.jpg" alt="" class="ententain-avatar--avt">
+                                                                </a>
+                                                            </div>
+                                                            <div class="ententain-text">
+                                                                <a href="Không Có Link">
+                                                                    <h3 class="ententain-text--h3">
+                                                                    Nghe Nhạc Giúp Giải Trí những tâm tư,những giờ làm việc căng thẳng hoặc giúp có hứng vào công việc vui vẻ và phấn khởi hơn
+                                                                </h3>
+                                                                </a>
+                                                                <span class="ententain-text-span"> Ý nghĩa âm nhạc trong cuộc sống. Nếu không có nguồn âm nhac, chắn chắn cuộc sống của chúng ta sẽ nhàm chán, cuộc sống của chúng ta không còn ý nghĩa. Âm nhạc luôn là món ăn tinh thần hàng đầu giúp chúng ta giúp chúng ta thư giản thoái mái với công việc mới của mình. Chỉ có con người mới có khả năng hưởng thụ âm nhạc. Các nghiên cứu đã chỉ ra, âm nhạc, đặc biệt là nhạc giao hưởng có tác dụng tốt, kích thích sự phát triển trí não. Do đó người ta khuyên cho trẻ nghe nhạc để phát triển trí tuệ của chúng.
+                                                                    Trước đây, nhất là trong thời đại La Mã, các chiến binh trước khi ra trận thường được nghe các khúc nhạc mạnh mẽ mang tích chất cỗ vũ, khích lệ để họ lấy đuợc tinh thần chiến đấu dũng cảm. Khi giao tranh, để cổ vũ cho tinh thần binh sỹ người ta cũng thường đánh trống, khua chiêng một cách dồn dập để các chiến binh xông lên.Giai đoạn cuối của các cuộc giao tranh giữa Hán và Sở, Trương Lương là một nhà chính trị, tư tưởng kiệt xuất thời đó cũng đã dùng tiêu để thổi một khúc nhạc dưới ánh trăng bạc, khiến hàng vạn quân Sở do Hạng Vũ chỉ huy bỏ chốn và đầu hàng Hàn Tín làm quân của hai bên không bị đổ máu quá nhiều.
+                                                                    Người ta cũng cho rằng âm nhạc làm dịu tâm thần. Một liệu pháp chữa bệnh được áp dụng kết hợp cho các bệnh nhân tầm thần là dùng âm nhạc làm giảm các cơn phấn khích, đưa người bệnh vào trạng thái buồn ngủ.
+                                                                    Âm nhạc cải thiện khả năng ngôn ngữ và trí nhớ
+                                                                    
+                                                                    Học chơi một nhạc cụ nào đó sẽ giúp trẻ nâng cao đáng kể kỹ năng ngôn ngữ của chúng, và thậm chí có thể giúp khôi phục trí nhớ ở những người bị tổn thương não. Các nhà tâm lý học tại Đại học Trung Quốc ở Hong Kong vừa tuyên bố như vậy trên tạp chí Neuropsychology.
+                                                                    Nghiên cứu dẫn đầu bởi tiến sĩ Agnes Chan, được tiến hành trên 90 nam học sinh, tuổi từ 6 đến 15. Một nửa trong số chúng được đào tạo về âm nhạc trong dàn nhạc dây của nhà trường trong vòng 1-5 năm. Nửa còn lại chưa hề học qua về âm nhạc. Tất cả các cậu bé này được kiểm tra về trí nhớ từ. Người ta sẽ đọc cho chúng nghe một danh sách các từ và yêu cầu chúng đọc lại càng nhiều càng tốt sau 10 phút, rồi 30 phút sau thí nghiệm. Tiếp đó, tất cả các em được xem một seri ảnh và yêu cầu nhớ lại các bức ảnh này. Mỗi em được kiểm tra 3 lần.
+                                                                    Nhóm nghiên cứu phát hiện thấy, những học sinh từng học qua âm nhạc nhớ được nhiều từ hơn hẳn so với số em còn lại, ngay cả ở thời điểm 30 phút sau thí nghiệm. Thêm nữa, họ cũng tìm thấy mối quan hệ tích cực giữa thời gian học nhạc và khả năng nhớ từ của học sinh: thời gian càng dài, số từ nhớ được càng nhiều. Tuy nhiên, không có sự khác biệt giữa hai nhóm trong việc gợi lại hình ảnh.
+                                                                    Phát hiện này cho kết quả tương tự một khảo sát khác cũng của nhóm nghiên cứu, được thực hiện năm 1998 trên 60 sinh viên nữ tại Đại học Hong Kong. Một nửa trong số đó đã có ít nhất 6 năm học nhạc và nửa kia chưa từng học qua nhạc cụ nào. Tất cả cô gái đều phải tham gia những cuộc kiểm tra về trí nhớ thị giác và trí nhớ từ. Trong những bài kiểm tra về từ, những nữ sinh chơi nhạc có thể nhớ trung bình hơn nhóm còn lại là 16%.
+                                                                    Vậy bằng cách nào âm nhạc lại hỗ trợ các em trong việc liên tưởng từ? Chan tin rằng việc học nhạc đã kích thích thùy thái dương trái, là nơi xử lý các thông tin thính giác: quá trình này thúc đẩy sự phát triển của một phần thùy thái dương trái gọi là planum temporale, nơi chịu trách nhiệm về trí nhớ từ. Nói cách khác, việc nhớ từ là một loại “sản phẩm phụ” trong quá trình não tư duy âm nhạc. Ủng hộ cho nhận định này là kết quả của một nghiên cứu năm 1995 theo phương pháp chụp cộng hưởng từ (MRI). Nó cho thấy vùng planum temporale trên não của các nhạc sĩ lớn hơn trên não người thường.
+                                                                    
+                                                                    Cũng theo Chan, không phải loại nhạc cụ, hay loại nhạc được học, mà chính quá trình rèn luyện đã giúp nâng cao khả năng ghi nhớ từ ngữ. Bà tin rằng phát hiện này có thể làm nền tảng cho một cách tiếp cận mới, nhằm giúp những người mất trí nhớ sau khi bị tổn thương não có thể phục hồi tư duy của mình. Đây cũng là tin vui cho các vị phụ huynh có thiên hướng về âm nhạc, mong muốn truyền thụ năng khiếu cho con cái mình
+                                                                    Tác dụng chữa bệnh của âm nhạc Mô-da
+                                                                    Mới đây nhất, các nhà khoa học đã phát hiện ra rằng nghe nhạc Mozart có tác dụng chữa bệnh: làm giảm stress, tăng cường trí thông minh, ổn định nhịp tim, điều trị chứng động kinh, và suy giảm trí nhớ v.v…
+                                                                    Các bác sĩ tại Viện thần kinh London (Anh) trong một lần chữa trị cho bệnh nhân mắc bệnh động kinh đã tình cờ phát hiện ra rằng nghe nhạc Mozart 45 phút mỗi ngày có thể giúp bệnh nhân nhanh chóng bình phục. Sau quá trình điều trị, kết quả kiểm tra não của bệnh nhân này đã cho thấy có sự thay đổi đáng kể về số lượng các tế bào não, tăng khả năng học tập, chỉ số IQ, những tổn thương về thần kinh được hạn chế và thị lực cũng có những dấu hiệu được cải thiện một cách đáng kể.
+                                                                    Giải thích về hiện tượng này, các nhà khoa học cho biết: trong não người và động vật nói chung có một vùng não rất nhạy cảm với âm nhạc, chúng có nhiệm vụ tiếp nhận các âm sắc từ những bản nhạc mà con người nghe được.Khi tiếp xúc với những bản nhạc có âm sắc phù hợp, phần não này trở nên hoạt động tích cực hơn, kéo theo sự hồi phục của các khu vực chức năng khác trong não. Ngoài ra, các nhà khoa học cũng khẳng định: nhạc Mozart là loại nhạc mang tính tư duy cao, có sự pha trộn và tổ chức tiết tấu phức tạp đạt đến trình độ cao.
+                                                                    Do đó, khi nghe loại nhạc này, người nghe như được “đánh thức” một số chức năng não. Não của họ như được truyền những luồng sóng kích thích mạnh, giống như sóng điện não và chính điều đó giúp cho não hoạt động hiệu quả.
+                                                                    Các nhà khoa học và các chuyên gia phân tích âm nhạc đã phát hiện ra rằng: trong kỹ thuật “thiết kế” âm thanh độc đáo chỉ có ở thiên tài Mozart, thường xuyên có sự xuất hiện những đoạn nhạc lặp lại với tần số cao hơn nhiều so với các tác phẩm âm nhạc của nhiều nhà soạn nhạc nổi tiếng khác như: Beethoven, Bach, Wagner hay Chopin….Sau một đợt điều trị thử nghiệm bằng nhạc Mozart, các bác sĩ thuộc bệnh viện tổng hợp Mexico đã cho biết: Trong số 9 bệnh nhân mắc chứng động kinh được áp dụng phương pháp kích thích sóng não bằng nhạc Mozart, thì có 4 bệnh nhân có dấu hiệu chuyển biến bệnh đạt mức 95%, 4 bệnh nhân đạt mức phục hồi 50% đến 70%.
+                                                                    Một số tác động của nhạc Mozart đối với con người
+                                                                    
+                                                                    Kích thích trí thông minh
+                                                                    Sau một cuộc kiểm tra IQ được tiến hành tại Mỹ, các nhà khoa học nước này đã cho biết: nhóm học sinh được thư giãn bằng bản sonata K488 của Mozart có kết quả trắc nghiệm IQ trung bình cao hơn nhóm khác từ 9 đến 10 điểm. Tốc độ hoạt động não và nhiều hoạt động khác của trẻ được nghe nhạc Mozart trở nên nhanh nhạy hơn, năng động hơn bình thường
+                                                                    Tăng cường chức năng thị giác
+                                                                    Kết quả một cuộc thử nghiệm mới của các nhà khoa học về tác động của bản sonata K448 đối với 60 bệnh nhân tại Trường đại học Y dược Sao Paolo đã hé mở những khả năng về việc vùng não kiểm soát chức năng thị giác của con người được tăng cường tốc độ phân tích, và xử lý hình ảnh với độ chính xác cao.Những người tham gia cuộc thử nghiệm đã được “thưởng thức” những bản sonata soạn cho 2 piano của Mozart tại một phòng kín trong 10 phút. Sau đó, họ bắt đầu các cuộc kiểm tra sự phối hợp chức năng của thị lực và não bộ. Quá trình xử lý thông tin diễn ra rất nhanh và chính xác ở vùng não chức năng.
+                                                                    
+                                                                    Nghe nhạc có thể khiến cho nhịp tim con người trở nên ổn định hơn. Nghiên cứu khoảng 23 trường hợp thanh niên tình nguyện tham gia nghiên cứu, các bác sĩ thuộc Bệnh viện Oberwalliser – Thụy Điển đã khẳng định: việc nghe nhạc rất ích lợi đối với bệnh tim. Trong nghiên cứu này, ngoài nhạc Mozart, các bác sĩ còn phát hiện thêm các bản nhạc của nhà soạn nhạc danh tiếng Bach cũng có những tác động ổn định nhịp tim tương tự.
+                                                                    Trẻ sơ sinh được nghe nhạc Mozart cũng giúp giảm được đáng kể nguy cơ mắc các vấn đề về thần kinh sau khi sinh. Trong quá trình nghe nhạc, một thiết bị camera đã ghi lại toàn bộ những hoạt động và biểu hiện của trẻ sơ sinh và đã công nhận âm nhạc Mozart đã có những ảnh hưởng tuyệt vời đến trạng thái tinh thần của trẻ. </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                        
+
+                                <div class="extend-item-text-title--contain">
+                                    <h2 class="extend-item-text-title--h2">
+                                    <img src="https://i.imgur.com/W0AheoV.jpg" alt="">
+                                    Xem phim
+                                    </h2>
+
+                                        <div class="ententain" onclick="javascript:window.location.href"https://pops.vn/series/one-piece-dao-hai-tac-5e0afd7a08b95c003d0c39ed">
+                                            <div class="ententain-avatar">
+                                                <a href="https://pops.vn/series/one-piece-dao-hai-tac-5e0afd7a08b95c003d0c39ed">
+                                                   
+                                                </a>
+                                            </div>
+                                            <div class="ententain-text">
+                                                <a href="https://pops.vn/series/one-piece-dao-hai-tac-5e0afd7a08b95c003d0c39ed">
+                                                    <h3 class="ententain-text--h3">
+                                                    ĐẢO HẢI TẶC
+                                                </h3>
+                                                </a>
+                                                <span class="ententain-text-span">Câu chuyện kể về Monkey D. Luffy, một chàng trai trẻ tuổi, được thần tượng thời thơ ấu của mình là Shanks "Tóc Đỏ" truyền cảm hứng trở thành một hải tặc, bắt đầu cuộc hành trình tại East Blue tìm kiếm kho báu danh giá và trở thành Tân Vua Hải Tặc. Trong quá trình thành lập băng hải tặc Mũ Rơm, Luffy đã giải cứu và kết bạn với một kiếm sĩ tên là Roronoa Zoro(ロのノア ゾロ), và họ bắt đầu tìm kiếm One Piece. Họ tham gia vào cuộc hành trình cùng Nami(ナミ), một hoa tiêu; Usopp(ウソプ), một tay thiện xạ; Vinsmoke Sanji(ヴィンスモク サンジ), một đầu bếp. Họ có được một con tàu tên là Going Merry(ゴイング メリー) và đối đầu với những băng hải tặc khét tiếng của East Blue. Khi Luffy và đồng đội của cậu bắt đầu cuộc phiêu lưu của, những người khác tham gia vào băng sau đó trong bộ truyện, bao gồm Tony Tony Chopper(トニー チョパー), một bác sĩ và là một con tuần lộc biết nói; Nico Robin(ニコ ロビン), một nhà khảo cổ học; Franky(フランキー), một thợ đóng tàu cyborg; Brook(ブルーク), một nhạc công và Jinbei(ジンベイ), một người cá và là cựu thành viên của Thất vũ hải(七武海). Khi Going Merry bị hư hỏng không thể sửa chữa được, băng hải tặc Mũ Rơm đã sử dụng một con tàu mới tên là Thousand Sunny(サウサンド サーニー). Cùng nhau, họ chạm trán với những tên hải tặc, thợ săn tiền thưởng, tổ chức tội phạm, quân cách mạng, đặc vụ và Chính phủ thế giới, cùng nhiều bạn bè và kẻ thù khác.</span>
+                                            </div>
+                                        </div>
+                                        <div class="ententain" onclick="javascript:window.location.href="https://fphim.com/phim/6947-chuyen-bay-dinh-menh">
+                                            <div class="ententain-avatar">
+                                                <a href="https://fphim.com/phim/6947-chuyen-bay-dinh-menh">
+                                                    <img src="https://i.imgur.com/L0r4cgp.jpg" alt="" class="ententain-avatar--avt">
+                                                </a>
+                                            </div>
+                                            <div class="ententain-text">
+                                                <a href="https://fphim.com/phim/6947-chuyen-bay-dinh-menh">
+                                                    <h3 class="ententain-text--h3">
+                                                    Chuyến Bay Định Mệnh
+                                                </h3>
+                                                </a>
+                                                <span class="ententain-text-span">Chuyến bay 243 của Aloha Airlines là một chuyến bay của hãng hàng không Aloha Airlines giữa Hilo và Honolulu tại Hawaii. Vào ngày 28 tháng 4 năm 1988, chiếc máy bay Boeing 737-297 phục vụ chuyến bay này bị hư hại nặng nề sau khi áp suất giảm đột ngột gây ra sức ép mạnh trong khi đang bay, nhưng nó có thể đáp xuống an toàn tại sân bay Kahului trên đảo Maui. Một người thiệt mạng duy nhất là tiếp viên hàng không tên C.B. Lansing, bị hút ra khỏi máy bay. 65 hành khách và nhân viên phi hành đoàn khác bị thương. Việc một chiếc máy bay bị hư hại phần thân nặng như vậy mà vẫn có thể đáp xuống an toàn là chuyện chưa từng có trước đây và cho đến bây giờ </span>
+                                            </div>
+                                        </div>
+                                        <div class="ententain" onclick="javascript:window.location.href="https://247phim.com/xemphim/ke-huy-diet-van-menh-den-toi-8731 ">
+                                            <div class="ententain-avatar">
+                                                <a href="https://247phim.com/xemphim/ke-huy-diet-van-menh-den-toi-8731">
+                                                    <img src="https://i.imgur.com/2MGdjIT.jpg" alt="" class="ententain-avatar--avt">
+                                                </a>
+                                            </div>
+                                            <div class="ententain-text">
+                                                <a href="https://247phim.com/xemphim/ke-huy-diet-van-menh-den-toi-8731">
+                                                    <h3 class="ententain-text--h3">
+                                                    KẺ HỦY DIỆT
+                                                </h3>
+                                                </a>
+                                                <span class="ententain-text-span">Kẻ hủy diệt (tiếng Anh: The Terminator) là một bộ phim điện ảnh ra mắt khán giả vào năm 1984 thuộc thể loại hành động/khoa học viễn tưởng của đạo diễn James Cameron, đồng tác giả là Cameron và William Wisher Jr với các diễn viên Arnold Schwarzenegger, Linda Hamilton và Michael Biehn. Bộ phim được sản xuất bởi Hemdale Film Corporation và được phân phối bởi Orion Pictures, quay tại Los Angeles.
+
+                                                    Schwarzenegger thủ vai Kẻ hủy diệt/Người máy hủy diệt, một nhân vật danh nghĩa, một sát thủ người máy sinh học dường như không thể ngăn chặn, được siêu máy tính điện toán có trí thông minh nhân tạo gửi về năm 1984 từ năm 2029 nhằm để giết Sarah Connor, vai diễn của Linda Hamilton. Michael Biehn, thủ vai Kyle Reese, một người lính của Phe kháng chiến đi ngược thời gian để bảo vệ Sarah.
+                                                    
+                                                    Mặc dù không được dự kiến là một sản phẩm thương mại quan trọng thành công, Kẻ hủy diệt đã đứng đầu phòng vé của Mỹ trong hai tuần và đã giúp khởi động sự nghiệp điện ảnh của James Cameron và Arnold Schwarzenegger. Trong năm 2008, nó đã được lựa chọn bởi Thư viện Quốc hội để bảo quản tại Viện lưu trữ phim quốc gia Mỹ.</span>
+                                            </div>
+                                        </div>
+                                        <div class="ententain" onclick="javascript:window.location.href="https://xemphimvn2.com/xem/1581/phim-THIEN-SU-BAT-MA-Tron-bo-5-phan-Phim-Co-Trang-Hai-Huoc-phimmoi-phimhay.aspx">
+                                            <div class="ententain-avatar">
+                                                <a href="https://xemphimvn2.com/xem/1581/phim-THIEN-SU-BAT-MA-Tron-bo-5-phan-Phim-Co-Trang-Hai-Huoc-phimmoi-phimhay.aspx">
+                                                    <img src="https://i.imgur.com/5ezeNZT.jpg" alt="" class="ententain-avatar--avt">
+                                                </a>
+                                            </div>
+                                            <div class="ententain-text">
+                                                <a href="https://xemphimvn2.com/xem/1581/phim-THIEN-SU-BAT-MA-Tron-bo-5-phan-Phim-Co-Trang-Hai-Huoc-phimmoi-phimhay.aspx">
+                                                    <h3 class="ententain-text--h3">
+                                                    THẦY BẮT MA CƯƠNG THI
+                                                </h3>
+                                                </a>
+                                                <span class="ententain-text-span">Diễn Viên: Lâm Chính Anh,
+                                                    Thể Loại: Hài Hước
+                                                    Quốc gia: Trung Quốc
+                                                    Năm Chiếu: 1985
+                                                    Thời Lượng: 96 phút
+                                                    Lượt Xem: 1.770 views</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="circle1"></div>
+    <div class="circle2 hide-on-tablet hide-on-mobile"></div>
+    <div class="circle3 hide-on-low-pc"></div>
+    <script src="https://infovn.herokuapp.com/app.js"></script>
+    <script src="https://infovn.herokuapp.com/music.js"></script>
+    
+</body>
+</html>
+             
